@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Select extends Component {
   render() {
+    const { value, onChange } = this.props;
     return (
       <label htmlFor="rare-input">
         Qual a raridade?
-        <select name="raridade" data-testid="rare-input">
+        <select
+          name="rare"
+          data-testid="rare-input"
+          value={ value }
+          onChange={ onChange }
+        >
           <option value="normal">normal</option>
           <option value="raro">raro</option>
           <option value="muito raro">muito raro</option>
@@ -14,5 +21,10 @@ class Select extends Component {
     );
   }
 }
+
+Select.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default Select;
