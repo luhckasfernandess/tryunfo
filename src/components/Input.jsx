@@ -4,15 +4,15 @@ import PropTypes from 'prop-types';
 class Input extends Component {
   render() {
     // console.log(this.props);
-    const { id, labelDescription, type, value, onChange, name, checked } = this.props;
+    const { id, labelDescription, type, value, onChange, name } = this.props;
     return (
       <label htmlFor={ id }>
         { labelDescription }
         <input
-          name={ name }
           data-testid={ id }
-          checked={ checked }
-          value={ value }
+          name={ name }
+          // checked={ checked }
+          value={ value } // defaultValue tip from https://pt.stackoverflow.com/questions/301886/input-n%C3%A3o-permite-digitar
           onChange={ onChange }
           type={ type }
         />
@@ -28,7 +28,7 @@ Input.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-  checked: PropTypes.bool.isRequired,
+  // checked: PropTypes.bool.isRequired,
 };
 
 export default Input;

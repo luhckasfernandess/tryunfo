@@ -18,21 +18,21 @@ class Form extends Component {
       // hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
-      onSaveButtonClick,
+      // onSaveButtonClick,
     } = this.props;
     return (
       <div>
         <form>
           <Input
-            name="name"
+            name="cardName"
+            type="text"
             id="name-input"
             value={ cardName }
             onChange={ onInputChange }
-            type="text"
             labelDescription="Nome da carta"
           />
           <Input
-            name="description"
+            name="cardDescription"
             id="description-input"
             value={ cardDescription }
             onChange={ onInputChange }
@@ -40,7 +40,7 @@ class Form extends Component {
             labelDescription="Descrição da carta"
           />
           <Input
-            name="attr1"
+            name="cardAttr1"
             id="attr1-input"
             value={ cardAttr1 }
             onChange={ onInputChange }
@@ -48,7 +48,7 @@ class Form extends Component {
             labelDescription="Atributo 1"
           />
           <Input
-            name="attr2"
+            name="cardAttr2"
             id="attr2-input"
             value={ cardAttr2 }
             onChange={ onInputChange }
@@ -56,7 +56,7 @@ class Form extends Component {
             labelDescription="Atributo 2"
           />
           <Input
-            name="attr3"
+            name="cardAttr3"
             id="attr3-input"
             value={ cardAttr3 }
             onChange={ onInputChange }
@@ -64,7 +64,7 @@ class Form extends Component {
             labelDescription="Atributo 3"
           />
           <Input
-            name="image"
+            name="cardImage"
             id="image-input"
             value={ cardImage }
             onChange={ onInputChange }
@@ -73,7 +73,7 @@ class Form extends Component {
           />
           <Select value={ cardRare } onChange={ onInputChange } />
           <Input
-            name="isSuperTrunfo"
+            name="cardTrunfo"
             id="trunfo-input"
             type="checkbox"
             checked={ cardTrunfo }
@@ -82,7 +82,7 @@ class Form extends Component {
           />
           <Button
             disabled={ isSaveButtonDisabled }
-            onClick={ onSaveButtonClick }
+            // onClick={ onSaveButtonClick }
           />
         </form>
       </div>
@@ -102,7 +102,7 @@ Form.propTypes = {
   // hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
-  onSaveButtonClick: PropTypes.func.isRequired,
+  // onSaveButtonClick: PropTypes.func.isRequired,
 };
 
 export default Form;

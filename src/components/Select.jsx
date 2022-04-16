@@ -8,7 +8,7 @@ class Select extends Component {
       <label htmlFor="rare-input">
         Qual a raridade?
         <select
-          name="rare"
+          name="cardRare"
           data-testid="rare-input"
           value={ value }
           onChange={ onChange }
