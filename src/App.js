@@ -20,10 +20,60 @@ class App extends React.Component {
       cardTrunfo: '',
       hasTrunfo: '',
       isSaveButtonDisabled: 'disabled',
+      savedList: [],
     };
   }
 
   onSaveButtonClick() {
+    // Desestruturando de novo para acessar o state, lembre-se de testar se funciona desestruturando com escopo global Lucas
+    // Não faço agora pq estou concentrado e ñ quero perder meu raciocínio aqui, segunda já começa outro projeto. Let's go!
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    } = this.state;
+    // Salvando cada carta em um formato de objeto
+    const savedCart = {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    };
+    // Estou usando o parâmetro rest para pegar o meu estado anterior, no caso o meu array savedList, e adicionar nele as cartas no formato de objeto
+    this.setState((prevState) => ({
+      savedList: [...prevState.savedList, savedCart],
+      // E já estou limpando o formulário como pede o README na mesma cajadada
+      // Funciona? Yes...let's go, go, go
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: 'normal',
+      cardTrunfo: false,
+      isSaveButtonDisabled: true,
+    }));
+  }
+
+  onInputChange({ target }) {
+    const { name } = target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    // Como o setState é assíncrono para garantir o correto funcionamento devo chamar a minha função aqui no setState
+    // Apenas quando a entrada for alterada -> Source: https://stackoverflow.com/questions/42038590/when-to-use-react-setstate-callback
+    this.setState({ [name]: value }, () => { this.validateSaveButton(); });
+  }
+
+  validateSaveButton() {
     // Vou ter que desestruturar o state (de novo) para poder usar as props aqui
     const {
       cardName,
@@ -48,14 +98,6 @@ class App extends React.Component {
       && (Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3)) <= sum
     ) return this.setState({ isSaveButtonDisabled: false });
     return this.setState({ isSaveButtonDisabled: true });
-  }
-
-  onInputChange({ target }) {
-    const { name } = target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    // Como o setState é assíncrono para garantir o correto funcionamento devo chamar a minha função aqui no setState
-    // Apenas quando a entrada for alterada -> Source: https://stackoverflow.com/questions/42038590/when-to-use-react-setstate-callback
-    this.setState({ [name]: value }, () => { this.onSaveButtonClick(); });
   }
 
   render() {
@@ -86,6 +128,7 @@ class App extends React.Component {
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onInputChange={ this.onInputChange }
           onSaveButtonClick={ this.onSaveButtonClick }
+          buttonEvent={ this.buttonEvent }
         />
         <Card
           cardName={ cardName }
