@@ -7,6 +7,7 @@ class App extends React.Component {
     super();
 
     this.onInputChange = this.onInputChange.bind(this);
+    this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
 
     this.state = {
       cardName: '',
@@ -18,16 +19,43 @@ class App extends React.Component {
       cardRare: '',
       cardTrunfo: '',
       hasTrunfo: '',
-      isSaveButtonDisabled: '',
-      // onSaveButtonClick: func,
+      isSaveButtonDisabled: 'disabled',
     };
+  }
+
+  onSaveButtonClick() {
+    // Vou ter que desestruturar o state (de novo) para poder usar as props aqui
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+    } = this.state;
+    // O lint não me permite usar números mágicos, então tenho que criar constantes, affs
+    const min = 0;
+    const sum = 210;
+    const max = 90;
+    if (
+      cardName && cardDescription && cardImage && cardRare
+      // Meus colegas sugeriram no Whatsapp ler essa documentação e usar o Number: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
+      // É parecido com o parseInt, mas eu teria que usar o radix no caso do parse e eu não conseguiria pôr em uma única linha como fiz abaixo
+      && Number(cardAttr1) >= min && Number(cardAttr2) >= min && Number(cardAttr3) >= min
+      // Vamos ver se funciona em uma linha só essa lógica
+      && Number(cardAttr1) <= max && Number(cardAttr2) <= max && Number(cardAttr3) <= max
+      && (Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3)) <= sum
+    ) return this.setState({ isSaveButtonDisabled: false });
+    return this.setState({ isSaveButtonDisabled: true });
   }
 
   onInputChange({ target }) {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-
-    this.setState({ [name]: value });
+    // Como o setState é assíncrono para garantir o correto funcionamento devo chamar a minha função aqui no setState
+    // Apenas quando a entrada for alterada -> Source: https://stackoverflow.com/questions/42038590/when-to-use-react-setstate-callback
+    this.setState({ [name]: value }, () => { this.onSaveButtonClick(); });
   }
 
   render() {
@@ -42,7 +70,6 @@ class App extends React.Component {
       cardTrunfo,
       hasTrunfo,
       isSaveButtonDisabled,
-      // onSaveButtonClick,
     } = this.state;
     return (
       <div>
@@ -58,7 +85,7 @@ class App extends React.Component {
           hasTrunfo={ hasTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onInputChange={ this.onInputChange }
-          // onSaveButtonClick={ onSaveButtonClick }
+          onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card
           cardName={ cardName }

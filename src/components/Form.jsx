@@ -24,6 +24,8 @@ class Form extends Component {
       <div>
         <form>
           <Input
+          // Faltava apenas passar os nomes com as props necessárias, consegui via ajuda no Slack
+          // Souce: https://trybecourse.slack.com/archives/C02T5FNGN07/p1649715282660049
             name="cardName"
             type="text"
             id="name-input"

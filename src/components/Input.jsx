@@ -12,6 +12,7 @@ class Input extends Component {
           data-testid={ id }
           name={ name }
           // checked={ checked }
+          // Source: https://trybecourse.slack.com/archives/C02T5FNGN07/p1649715282660049
           value={ value } // defaultValue tip from https://pt.stackoverflow.com/questions/301886/input-n%C3%A3o-permite-digitar
           onChange={ onChange }
           type={ type }
