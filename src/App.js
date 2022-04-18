@@ -64,6 +64,8 @@ class App extends React.Component {
       cardTrunfo: false,
       isSaveButtonDisabled: true,
     }));
+    // Validate Super Trunfo usando CardTrunfo
+    if (cardTrunfo === true) this.setState({ hasTrunfo: true });
   }
 
   onInputChange({ target }) {

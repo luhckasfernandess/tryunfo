@@ -21,13 +21,13 @@ class Form extends Component {
       onSaveButtonClick,
     } = this.props;
 
-    let hasTrunfoValidade;
+    let hasTrunfoValidate;
     if (hasTrunfo === true) {
-      hasTrunfoValidade = (<p>Você já tem um Super Trunfo em seu baralho</p>);
+      hasTrunfoValidate = (<p>Você já tem um Super Trunfo em seu baralho</p>);
       // Eu tive um erro de lint com as chaves e o else, da uma olhada nessa doc da próxima: https://eslint.org/docs/2.0.0/rules/brace-style
       // Funcionou mas ainda não está legal, deveria ser cobrado CSS da gente e deveríamos ter mais tempo para estilizar
     } else {
-      hasTrunfoValidade = (
+      hasTrunfoValidate = (
         <Input
           name="cardTrunfo"
           id="trunfo-input"
@@ -38,6 +38,7 @@ class Form extends Component {
         />
       );
     }
+
     return (
       <div>
         <form>
@@ -92,7 +93,7 @@ class Form extends Component {
             labelDescription="Imagem da carta"
           />
           <Select value={ cardRare } onChange={ onInputChange } />
-          {hasTrunfoValidade}
+          {hasTrunfoValidate}
           <Button
             disabled={ isSaveButtonDisabled }
             onClick={ onSaveButtonClick }
