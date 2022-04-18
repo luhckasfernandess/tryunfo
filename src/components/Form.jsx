@@ -15,11 +15,29 @@ class Form extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      // hasTrunfo,
+      hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick,
     } = this.props;
+
+    let hasTrunfoValidade;
+    if (hasTrunfo === true) {
+      hasTrunfoValidade = (<p>Você já tem um Super Trunfo em seu baralho</p>);
+      // Eu tive um erro de lint com as chaves e o else, da uma olhada nessa doc da próxima: https://eslint.org/docs/2.0.0/rules/brace-style
+      // Funcionou mas ainda não está legal, deveria ser cobrado CSS da gente e deveríamos ter mais tempo para estilizar
+    } else {
+      hasTrunfoValidade = (
+        <Input
+          name="cardTrunfo"
+          id="trunfo-input"
+          type="checkbox"
+          checked={ cardTrunfo }
+          onChange={ onInputChange }
+          labelDescription="É Super Trunfo"
+        />
+      );
+    }
     return (
       <div>
         <form>
@@ -74,14 +92,7 @@ class Form extends Component {
             labelDescription="Imagem da carta"
           />
           <Select value={ cardRare } onChange={ onInputChange } />
-          <Input
-            name="cardTrunfo"
-            id="trunfo-input"
-            type="checkbox"
-            checked={ cardTrunfo }
-            onChange={ onInputChange }
-            labelDescription="É Super Trunfo"
-          />
+          {hasTrunfoValidade}
           <Button
             disabled={ isSaveButtonDisabled }
             onClick={ onSaveButtonClick }
@@ -101,7 +112,7 @@ Form.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  // hasTrunfo: PropTypes.bool.isRequired,
+  hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
